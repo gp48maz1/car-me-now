@@ -1,0 +1,17 @@
+{
+  "id" : 4556,
+  "firstName" : "John",
+  "middleName": "Mazzone",
+  "lastName" : "Smith",
+  "emailAddress": "john@gmail.com",
+  "password": "password",
+  "address1" : "123 Main Street",
+  "address2" : null,
+  "city": "Anytown",
+  "state": "CA",
+  "country" : "us",
+  "postalCode" : "94035",
+  "driverLicense": "F1352F3",
+  "dlIssueState": "CA",
+  "rating": 4.5
+}

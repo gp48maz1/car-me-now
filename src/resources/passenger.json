@@ -1,0 +1,17 @@
+{
+  "id" : 4556,
+  "firstName" : "Sam",
+  "middleName": "Mazzone",
+  "lastName" : "Freddic",
+  "emailAddress": "sam@gmail.com",
+  "password": "password2",
+  "address1" : "789 Main Street",
+  "address2" : null,
+  "city": "Mook",
+  "state": "CA",
+  "country" : "us",
+  "postalCode" : "94035",
+  "driverLicense": "F1352F3",
+  "dlIssueState": "CA",
+  "rating": 4.5
+}

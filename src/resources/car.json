@@ -1,0 +1,15 @@
+{
+  "id" : 4556,
+  "make" : "Ford",
+  "model" : "Flex",
+  "year" : 1981,
+  "size" : "12.5",
+  "licensePlate" : "FR46DG",
+  "licenseState": "CA",
+  "vin": 12354126,
+  "odometer" : 12402,
+  "currentInsurer" : "AIG",
+  "purchasedYear": 1980,
+  "ownerNameTitle": "John Smith",
+  "isAccident": false
+}
