@@ -14,7 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
-@Path("drivers")
+@Path("driver")
 public class DriversInterface {
 
     MongoCollection<Document> collection;

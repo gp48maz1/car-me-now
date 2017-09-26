@@ -14,7 +14,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 import java.util.ArrayList;
 
-@Path("cars")
+@Path("car")
 public class CarsInterface {
 
     MongoCollection<Document> collection;
