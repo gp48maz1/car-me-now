@@ -15,29 +15,29 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
 @Path("drivers")
-public class DriversInterface {
+public class PaymentMethodInterface {
 
     MongoCollection<Document> collection;
 
-    public DriversInterface() {
+    public PaymentMethodInterface() {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase("app17");
 
-        this.collection = database.getCollection("drivers");
+        this.collection = database.getCollection("paymentMethod");
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON})
-    public ArrayList<Driver> getAll() {
+    public ArrayList<PaymentMethod> getAll() {
 
-        ArrayList<Driver> driverList = new ArrayList<Driver>();
+        ArrayList<PaymentMethod> paymentMethodList = new ArrayList<PaymentMethod>();
 
         FindIterable<Document> results = collection.find();
         if (results == null) {
-            return  driverList;
+            return  paymentMethodList;
         }
         for (Document item : results) {
-            Driver driver = new Driver(
+            PaymentMethod paymentMethod = new PaymentMethod(
                     item.getString("firstName"),
                     item.getString("middleName"),
                     item.getString("lastName"),
@@ -45,7 +45,7 @@ public class DriversInterface {
                     item.getString("password"),
                     item.getString("address1"),
                     item.getString("address2"),
-                    item.getString("stateCode"),
+                    item.getString("state"),
                     item.getString("city"),
                     item.getString("countryCode"),
                     item.getString("postalCode"),
@@ -53,10 +53,10 @@ public class DriversInterface {
                     item.getString("dlIssueState"),
                     item.getDouble("rating")
             );
-            driver.setId(item.getObjectId("_id").toString());
-            driverList.add(driver);
+            paymentMethod.setId(item.getObjectId("_id").toString());
+            paymentMethodList.add(paymentMethod);
         }
-        return driverList;
+        return paymentMethodList;
     }
 
     //{} vs no {}
@@ -65,7 +65,7 @@ public class DriversInterface {
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON})
-    public Driver getOne(@PathParam("id") String id) {
+    public PaymentMethod getOne(@PathParam("id") String id) {
 
 
         BasicDBObject query = new BasicDBObject();
@@ -75,7 +75,7 @@ public class DriversInterface {
         if (item == null) {
             return  null;
         }
-        Driver driver = new Driver(
+        PaymentMethod paymentMethod = new PaymentMethod(
                 item.getString("firstName"),
                 item.getString("middleName"),
                 item.getString("lastName"),
@@ -83,7 +83,7 @@ public class DriversInterface {
                 item.getString("password"),
                 item.getString("address1"),
                 item.getString("address2"),
-                item.getString("stateCode"),
+                item.getString("state"),
                 item.getString("city"),
                 item.getString("countryCode"),
                 item.getString("postalCode"),
@@ -91,8 +91,8 @@ public class DriversInterface {
                 item.getString("dlIssueState"),
                 item.getDouble("rating")
         );
-        driver.setId(item.getObjectId("_id").toString());
-        return driver;
+        paymentMethod.setId(item.getObjectId("_id").toString());
+        return paymentMethod;
 
     }
 
