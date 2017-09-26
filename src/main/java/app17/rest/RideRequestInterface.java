@@ -15,39 +15,38 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
 @Path("drivers")
-public class PaymentMethodInterface {
+public class RideRequestInterface {
 
     MongoCollection<Document> collection;
 
-    public PaymentMethodInterface() {
+    public RideRequestInterface() {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase("app17");
 
-        this.collection = database.getCollection("paymentMethod");
+        this.collection = database.getCollection("rideRequest");
     }
 
     @GET
     @Produces({ MediaType.APPLICATION_JSON})
-    public ArrayList<PaymentMethod> getAll() {
+    public ArrayList<RideRequest> getAll() {
 
-        ArrayList<PaymentMethod> paymentMethodList = new ArrayList<PaymentMethod>();
+        ArrayList<RideRequest> rideRequestList = new ArrayList<RideRequest>();
 
         FindIterable<Document> results = collection.find();
         if (results == null) {
-            return  paymentMethodList;
+            return  rideRequestList;
         }
         for (Document item : results) {
-            PaymentMethod paymentMethod = new PaymentMethod(
-                    item.getInteger("creditCardNumber"),
-                    item.getString("creditCardType"),
-                    item.getString("expirationDate"),
-                    item.getInteger("securityCode"),
-                    item.getString("cardHolderName")
+            RideRequest rideRequest = new RideRequest(
+                    item.getInteger("startingLocation_Lat"),
+                    item.getInteger("startingLocation_Lon"),
+                    item.getInteger("endingLocation_Lat"),
+                    item.getInteger("endingLocation_Lon")
             );
-            paymentMethod.setId(item.getObjectId("_id").toString());
-            paymentMethodList.add(paymentMethod);
+            rideRequest.setId(item.getObjectId("_id").toString());
+            rideRequestList.add(rideRequest);
         }
-        return paymentMethodList;
+        return rideRequestList;
     }
 
     //{} vs no {}
@@ -56,7 +55,7 @@ public class PaymentMethodInterface {
     @GET
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON})
-    public PaymentMethod getOne(@PathParam("id") String id) {
+    public RideRequest getOne(@PathParam("id") String id) {
 
 
         BasicDBObject query = new BasicDBObject();
@@ -66,15 +65,14 @@ public class PaymentMethodInterface {
         if (item == null) {
             return  null;
         }
-        PaymentMethod paymentMethod = new PaymentMethod(
-                item.getInteger("creditCardNumber"),
-                item.getString("creditCardType"),
-                item.getString("expirationDate"),
-                item.getInteger("securityCode"),
-                item.getString("cardHolderName")
+        RideRequest rideRequest = new RideRequest(
+                item.getInteger("startingLocation_Lat"),
+                item.getInteger("startingLocation_Lon"),
+                item.getInteger("endingLocation_Lat"),
+                item.getInteger("endingLocation_Lon")
         );
-        paymentMethod.setId(item.getObjectId("_id").toString());
-        return paymentMethod;
+        rideRequest.setId(item.getObjectId("_id").toString());
+        return rideRequest;
 
     }
 
@@ -91,11 +89,10 @@ public class PaymentMethodInterface {
     @Produces({ MediaType.APPLICATION_JSON})
     public Object create(JSONObject obj) {
         try {
-            Document doc = new Document("creditCardNumber", obj.getInt("creditCardNumber"))
-                    .append("creditCardType", obj.getString("creditCardType"))
-                    .append("expirationDate", obj.getString("expirationDate"))
-                    .append("securityCode", obj.getString("securityCode"))
-                    .append("cardHolderName", obj.getString("cardHolderName"));
+            Document doc = new Document("startingLocation_Lat", obj.getInt("startingLocation_Lat"))
+                    .append("startingLocation_Lon", obj.getInt("startingLocation_Lon"))
+                    .append("endingLocation_Lat", obj.getInt("endingLocation_Lat"))
+                    .append("endingLocation_Lon", obj.getInt("endingLocation_Lon"));
             collection.insertOne(doc);
 
         } catch(JSONException e) {
@@ -115,16 +112,14 @@ public class PaymentMethodInterface {
             query.put("_id", new ObjectId(id));
 
             Document doc = new Document();
-            if (obj.has("creditCardNumber"))
-                doc.append("creditCardNumber",obj.getString("creditCardNumber"));
-            if (obj.has("creditCardType"))
-                doc.append("creditCardType",obj.getString("creditCardType"));
-            if (obj.has("expirationDate"))
-                doc.append("expirationDate",obj.getString("expirationDate"));
-            if (obj.has("securityCode"))
-                doc.append("securityCode",obj.getString("securityCode"));
-            if (obj.has("cardHolderName"))
-                doc.append("cardHolderName",obj.getString("cardHolderName"));
+            if (obj.has("startingLocation_Lat"))
+                doc.append("startingLocation_Lat",obj.getInt("startingLocation_Lat"));
+            if (obj.has("startingLocation_Lon"))
+                doc.append("startingLocation_Lon",obj.getInt("startingLocation_Lon"));
+            if (obj.has("endingLocation_Lat"))
+                doc.append("endingLocation_Lat",obj.getInt("endingLocation_Lat"));
+            if (obj.has("endingLocation_Lon"))
+                doc.append("endingLocation_Lon",obj.getInt("endingLocation_Lon"));
 
 
             Document set = new Document("$set", doc);
