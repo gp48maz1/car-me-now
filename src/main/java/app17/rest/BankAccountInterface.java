@@ -23,7 +23,7 @@ public class BankAccountInterface {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase("app17");
 
-        this.collection = database.getCollection("drivers");
+        this.collection = database.getCollection("bankAccount");
     }
 
     @GET
@@ -39,8 +39,8 @@ public class BankAccountInterface {
         for (Document item : results) {
             BankAccount bankAccount = new BankAccount(
                     item.getString("bankName"),
-                    item.getInteger("accountingNumber"),
-                    item.getInteger("routingNumber"),
+                    item.getDouble("accountNumber"),
+                    item.getDouble("routingNumber"),
                     item.getString("accountHolderName"),
                     item.getBoolean("verified")
             );
@@ -68,8 +68,8 @@ public class BankAccountInterface {
         }
         BankAccount bankAccount = new BankAccount(
                 item.getString("bankName"),
-                item.getInteger("accountingNumber"),
-                item.getInteger("routingNumber"),
+                item.getDouble("accountNumber"),
+                item.getDouble("routingNumber"),
                 item.getString("accountHolderName"),
                 item.getBoolean("verified")
         );
@@ -92,10 +92,10 @@ public class BankAccountInterface {
     public Object create(JSONObject obj) {
         try {
             Document doc = new Document("bankName", obj.getString("bankName"))
-                    .append("accountNumber", obj.getString("accountNumber"))
-                    .append("routingNumber", obj.getString("routingNumber"))
+                    .append("accountNumber", obj.getDouble("accountNumber"))
+                    .append("routingNumber", obj.getDouble("routingNumber"))
                     .append("accountHolderName", obj.getString("accountHolderName"))
-                    .append("verified", obj.getString("verified"));
+                    .append("verified", obj.getBoolean("verified"));
             collection.insertOne(doc);
 
         } catch(JSONException e) {
@@ -118,9 +118,9 @@ public class BankAccountInterface {
             if (obj.has("bankName"))
                 doc.append("bankName",obj.getString("bankName"));
             if (obj.has("accountNumber"))
-                doc.append("accountNumber",obj.getInt("accountNumber"));
+                doc.append("accountNumber",obj.getDouble("accountNumber"));
             if (obj.has("routingNumber"))
-                doc.append("routingNumber",obj.getInt("routingNumber"));
+                doc.append("routingNumber",obj.getDouble("routingNumber"));
             if (obj.has("accountHolderName"))
                 doc.append("accountHolderName",obj.getString("accountHolderName"));
             if (obj.has("verified"))

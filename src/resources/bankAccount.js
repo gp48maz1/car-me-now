@@ -1,5 +1,5 @@
 db = connect("localhost:27017/app17");
-coll = db.cars;
+coll = db.bankAccount;
 coll.insert({
     "bankName" : "Chase",
     "accountNumber" : Number(098172304987123),

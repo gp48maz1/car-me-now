@@ -23,7 +23,7 @@ public class CarsInterface {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase("app17");
 
-        MongoCollection<Document> collection = database.getCollection("cars");
+        MongoCollection<Document> collection = database.getCollection("car");
         this.collection = collection;
 
     }
@@ -42,14 +42,14 @@ public class CarsInterface {
             Car car = new Car(
                     item.getString("make"),
                     item.getString("model"),
-                    item.getInteger("year", -1),
+                    item.getDouble("year"),
                     item.getString("size"),
-                    item.getInteger("odometer"),
                     item.getString("licensePlate"),
                     item.getString("licenseState"),
-                    item.getInteger("vin"),
+                    item.getDouble("vin"),
+                    item.getDouble("odometer"),
                     item.getString("currentInsurer"),
-                    item.getInteger("purchasedYear"),
+                    item.getDouble("purchasedYear"),
                     item.getString("ownerNameTitle"),
                     item.getBoolean("isAccident")
             );
@@ -79,14 +79,14 @@ public class CarsInterface {
         Car car = new Car(
                 item.getString("make"),
                 item.getString("model"),
-                item.getInteger("year", -1),
+                item.getDouble("year"),
                 item.getString("size"),
-                item.getInteger("odometer"),
                 item.getString("licensePlate"),
                 item.getString("licenseState"),
-                item.getInteger("vin"),
+                item.getDouble("vin"),
+                item.getDouble("odometer"),
                 item.getString("currentInsurer"),
-                item.getInteger("purchasedYear"),
+                item.getDouble("purchasedYear"),
                 item.getString("ownerNameTitle"),
                 item.getBoolean("isAccident")
         );
@@ -111,13 +111,13 @@ public class CarsInterface {
             Document doc = new Document("make", obj.getString("make"))
                     .append("model", obj.getString("model"))
                     .append("size", obj.getString("size"))
-                    .append("year", obj.getInt("year"))
-                    .append("odometer", obj.getInt("odometer"))
+                    .append("year", obj.getDouble("year"))
                     .append("licensePlate",obj.getString("licensePlate"))
                     .append("licensedState", obj.getString("licenseState"))
-                    .append("vin", obj.getString("vin"))
+                    .append("vin", obj.getDouble("vin"))
+                    .append("odometer", obj.getDouble("odometer"))
                     .append("currentInsurer", obj.getString("currentInsurer"))
-                    .append("purchasedYear", obj.getInt("purchasedYear"))
+                    .append("purchasedYear", obj.getDouble("purchasedYear"))
                     .append("ownerNameTitle", obj.getString("ownerNameTitle"))
                     .append("isAccident", obj.getBoolean("isAccident"));
             collection.insertOne(doc);
@@ -146,21 +146,21 @@ public class CarsInterface {
             if (obj.has("size"))
                 doc.append("size",obj.getString("size"));
             if (obj.has("year"))
-                doc.append("year",obj.getInt("year"));
-            if (obj.has("odometer"))
-                doc.append("odometer",obj.getString("odometer"));
+                doc.append("year",obj.getDouble("year"));
             if (obj.has("licensePlate"))
                 doc.append("licensePlate",obj.getString("licensePlate"));
             if (obj.has("licensedState"))
                 doc.append("licensedState",obj.getString("licensedState"));
             if (obj.has("vin"))
-                doc.append("vin",obj.getInt("vin"));
+                doc.append("vin",obj.getDouble("vin"));
+            if (obj.has("odometer"))
+                doc.append("odometer",obj.getDouble("odometer"));
             if (obj.has("currentInsurer"))
                 doc.append("currentInsurer",obj.getString("currentInsurer"));
             if (obj.has("purchasedYear"))
-                doc.append("purchasedYear",obj.getInt("purchasedYear"));
+                doc.append("purchasedYear",obj.getDouble("purchasedYear"));
             if (obj.has("ownerNameTitle"))
-                doc.append("ownerNameTitle",obj.getInt("ownerNameTitle"));
+                doc.append("ownerNameTitle",obj.getString("ownerNameTitle"));
             if (obj.has("isAccident"))
                 doc.append("isAccident",obj.getBoolean("isAccident"));
 

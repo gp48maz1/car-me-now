@@ -7,8 +7,9 @@ public class Car {
     Number year, odometer, vin, purchasedYear;
     Boolean isAccident;
 
-    public Car(String make, String model, Number year, String size, Number odometer, String licensePlate,
-               String licenseState, Number vin, String currentInsurer, Number purchasedYear, String ownerNameTitle,
+    public Car(String make, String model, Number year, String size,
+               String licensePlate, String licenseState, Number vin, Number odometer,
+               String currentInsurer, Number purchasedYear, String ownerNameTitle,
                Boolean isAccident) {
         this.make = make;
         this.model = model;

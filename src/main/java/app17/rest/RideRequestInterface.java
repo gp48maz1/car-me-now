@@ -38,10 +38,10 @@ public class RideRequestInterface {
         }
         for (Document item : results) {
             RideRequest rideRequest = new RideRequest(
-                    item.getInteger("startingLocation_Lat"),
-                    item.getInteger("startingLocation_Lon"),
-                    item.getInteger("endingLocation_Lat"),
-                    item.getInteger("endingLocation_Lon")
+                    item.getDouble("startingLocation_Lat"),
+                    item.getDouble("startingLocation_Lon"),
+                    item.getDouble("endingLocation_Lat"),
+                    item.getDouble("endingLocation_Lon")
             );
             rideRequest.setId(item.getObjectId("_id").toString());
             rideRequestList.add(rideRequest);
@@ -66,10 +66,10 @@ public class RideRequestInterface {
             return  null;
         }
         RideRequest rideRequest = new RideRequest(
-                item.getInteger("startingLocation_Lat"),
-                item.getInteger("startingLocation_Lon"),
-                item.getInteger("endingLocation_Lat"),
-                item.getInteger("endingLocation_Lon")
+                item.getDouble("startingLocation_Lat"),
+                item.getDouble("startingLocation_Lon"),
+                item.getDouble("endingLocation_Lat"),
+                item.getDouble("endingLocation_Lon")
         );
         rideRequest.setId(item.getObjectId("_id").toString());
         return rideRequest;
@@ -89,10 +89,10 @@ public class RideRequestInterface {
     @Produces({ MediaType.APPLICATION_JSON})
     public Object create(JSONObject obj) {
         try {
-            Document doc = new Document("startingLocation_Lat", obj.getInt("startingLocation_Lat"))
-                    .append("startingLocation_Lon", obj.getInt("startingLocation_Lon"))
-                    .append("endingLocation_Lat", obj.getInt("endingLocation_Lat"))
-                    .append("endingLocation_Lon", obj.getInt("endingLocation_Lon"));
+            Document doc = new Document("startingLocation_Lat", obj.getDouble("startingLocation_Lat"))
+                    .append("startingLocation_Lon", obj.getDouble("startingLocation_Lon"))
+                    .append("endingLocation_Lat", obj.getDouble("endingLocation_Lat"))
+                    .append("endingLocation_Lon", obj.getDouble("endingLocation_Lon"));
             collection.insertOne(doc);
 
         } catch(JSONException e) {
@@ -113,13 +113,13 @@ public class RideRequestInterface {
 
             Document doc = new Document();
             if (obj.has("startingLocation_Lat"))
-                doc.append("startingLocation_Lat",obj.getInt("startingLocation_Lat"));
+                doc.append("startingLocation_Lat",obj.getDouble("startingLocation_Lat"));
             if (obj.has("startingLocation_Lon"))
-                doc.append("startingLocation_Lon",obj.getInt("startingLocation_Lon"));
+                doc.append("startingLocation_Lon",obj.getDouble("startingLocation_Lon"));
             if (obj.has("endingLocation_Lat"))
-                doc.append("endingLocation_Lat",obj.getInt("endingLocation_Lat"));
+                doc.append("endingLocation_Lat",obj.getDouble("endingLocation_Lat"));
             if (obj.has("endingLocation_Lon"))
-                doc.append("endingLocation_Lon",obj.getInt("endingLocation_Lon"));
+                doc.append("endingLocation_Lon",obj.getDouble("endingLocation_Lon"));
 
 
             Document set = new Document("$set", doc);

@@ -23,7 +23,7 @@ public class DriversInterface {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase("app17");
 
-        this.collection = database.getCollection("drivers");
+        this.collection = database.getCollection("driver");
     }
 
     @GET
@@ -45,8 +45,8 @@ public class DriversInterface {
                     item.getString("password"),
                     item.getString("address1"),
                     item.getString("address2"),
-                    item.getString("stateCode"),
                     item.getString("city"),
+                    item.getString("state"),
                     item.getString("countryCode"),
                     item.getString("postalCode"),
                     item.getString("driverLicense"),
@@ -83,8 +83,8 @@ public class DriversInterface {
                 item.getString("password"),
                 item.getString("address1"),
                 item.getString("address2"),
-                item.getString("stateCode"),
                 item.getString("city"),
+                item.getString("state"),
                 item.getString("countryCode"),
                 item.getString("postalCode"),
                 item.getString("driverLicense"),
@@ -120,8 +120,8 @@ public class DriversInterface {
                     .append("state", obj.getString("state"))
                     .append("countryCode", obj.getString("countryCode"))
                     .append("postalCode", obj.getString("postalCode"))
-                    .append("driverLicense", obj.getBoolean("driverLicense"))
-                    .append("dlIssueState", obj.getBoolean("dlIssueState"))
+                    .append("driverLicense", obj.getString("driverLicense"))
+                    .append("dlIssueState", obj.getString("dlIssueState"))
                     .append("rating", obj.getDouble("rating"));
             collection.insertOne(doc);
 

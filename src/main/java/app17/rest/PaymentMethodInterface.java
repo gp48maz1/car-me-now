@@ -38,10 +38,10 @@ public class PaymentMethodInterface {
         }
         for (Document item : results) {
             PaymentMethod paymentMethod = new PaymentMethod(
-                    item.getInteger("creditCardNumber"),
+                    item.getDouble("creditCardNumber"),
                     item.getString("creditCardType"),
                     item.getString("expirationDate"),
-                    item.getInteger("securityCode"),
+                    item.getDouble("securityCode"),
                     item.getString("cardHolderName")
             );
             paymentMethod.setId(item.getObjectId("_id").toString());
@@ -67,10 +67,10 @@ public class PaymentMethodInterface {
             return  null;
         }
         PaymentMethod paymentMethod = new PaymentMethod(
-                item.getInteger("creditCardNumber"),
+                item.getDouble("creditCardNumber"),
                 item.getString("creditCardType"),
                 item.getString("expirationDate"),
-                item.getInteger("securityCode"),
+                item.getDouble("securityCode"),
                 item.getString("cardHolderName")
         );
         paymentMethod.setId(item.getObjectId("_id").toString());
@@ -91,10 +91,10 @@ public class PaymentMethodInterface {
     @Produces({ MediaType.APPLICATION_JSON})
     public Object create(JSONObject obj) {
         try {
-            Document doc = new Document("creditCardNumber", obj.getInt("creditCardNumber"))
+            Document doc = new Document("creditCardNumber", obj.getDouble("creditCardNumber"))
                     .append("creditCardType", obj.getString("creditCardType"))
                     .append("expirationDate", obj.getString("expirationDate"))
-                    .append("securityCode", obj.getString("securityCode"))
+                    .append("securityCode", obj.getDouble("securityCode"))
                     .append("cardHolderName", obj.getString("cardHolderName"));
             collection.insertOne(doc);
 
@@ -116,13 +116,13 @@ public class PaymentMethodInterface {
 
             Document doc = new Document();
             if (obj.has("creditCardNumber"))
-                doc.append("creditCardNumber",obj.getString("creditCardNumber"));
+                doc.append("creditCardNumber",obj.getDouble("creditCardNumber"));
             if (obj.has("creditCardType"))
                 doc.append("creditCardType",obj.getString("creditCardType"));
             if (obj.has("expirationDate"))
                 doc.append("expirationDate",obj.getString("expirationDate"));
             if (obj.has("securityCode"))
-                doc.append("securityCode",obj.getString("securityCode"));
+                doc.append("securityCode",obj.getDouble("securityCode"));
             if (obj.has("cardHolderName"))
                 doc.append("cardHolderName",obj.getString("cardHolderName"));
 
